@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="money_tracker_app_menu"
+                  name="Money Tracker"
+                  web_icon="money_tracker_integration,static/description/icon.png"
+                  sequence="100">
+            <menuitem id="money_tracker_app_configuration"
+                      name="Configuration"
+                      sequence="100">
+                <menuitem id="money_tracker_currency_config"
+                          name="Currencies"
+                          sequence="1"
+                          action="money_tracker_integration.money_tracker_currency_action"/>
+                <menuitem id="money_tracker_category_config"
+                          name="Categories"
+                          sequence="2"
+                          action="money_tracker_integration.money_tracker_category_action"/>
+            </menuitem>
+        </menuitem>
+    </data>
+</odoo>

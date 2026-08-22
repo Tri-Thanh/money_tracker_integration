@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="money_tracker_currency_view_search" model="ir.ui.view">
+            <field name="name">money_tracker_currency_view_search</field>
+            <field name="model">money_tracker.currency</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="code"/>
+                    <field name="currency_name"/>
+                    <field name="currency_name_short"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="money_tracker_currency_view_list" model="ir.ui.view">
+            <field name="name">money_tracker_currency_view_list</field>
+            <field name="model">money_tracker.currency</field>
+            <field name="arch" type="xml">
+                <list create="0" edit="0" delete="0">
+                    <field name="code"/>
+                    <field name="currency_name"/>
+                    <field name="currency_name_short" optional="hide"/>
+                    <field name="symbol"/>
+                    <field name="display_symbol" optional="hide"/>
+                    <field name="locale"/>
+                    <field name="owner_id" column_invisible="1"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="money_tracker_currency_action" model="ir.actions.act_window">
+            <field name="name">Money Tracker - Currencies</field>
+            <field name="res_model">money_tracker.currency</field>
+            <field name="view_mode">list</field>
+            <field name="search_view_id" ref="money_tracker_integration.money_tracker_currency_view_search"/>
+        </record>
+
+        <record id="money_tracker_currency_synchronize" model="ir.actions.server">
+            <field name="name">Money Tracker - Currencies: Synchronization</field>
+            <field name="path">mt_sync_currency</field>
+            <field name="model_id" ref="money_tracker_integration.model_money_tracker_currency"/>
+            <field name="binding_model_id" eval="False"/>
+            <field name="state">code</field>
+            <field name="groups_id" eval="[(4, ref('base.group_user'))]"/>
+            <field name="code">action = model.sync_currencies()</field>
+        </record>
+    </data>
+</odoo>

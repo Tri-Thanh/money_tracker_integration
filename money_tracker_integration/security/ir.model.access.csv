@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_model_money_tracker_currency,access_model_money_tracker_currency,money_tracker_integration.model_money_tracker_currency,base.group_user,1,1,1,1
+access_model_money_tracker_category,access_model_money_tracker_category,money_tracker_integration.model_money_tracker_category,base.group_user,1,1,1,1
