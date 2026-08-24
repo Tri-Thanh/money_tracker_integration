@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="money_tracker_base_url" model="ir.config_parameter">
+            <field name="key">money_tracker.base_url</field>
+            <field name="value">https://money.quhou123.com/Api</field>
+        </record>
+    </data>
+</odoo>
