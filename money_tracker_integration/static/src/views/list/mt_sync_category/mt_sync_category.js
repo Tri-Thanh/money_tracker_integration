@@ -13,7 +13,7 @@ const cogMenuRegistry = registry.category("cogMenu");
  * @extends Component
  */
 export class MTSyncCategory extends Component {
-    static template = "web.MTSyncCategory";
+    static template = "money_tracker_integration.MTSyncCategory";
     static components = {DropdownItem};
     static props = {};
 
@@ -29,7 +29,7 @@ export class MTSyncCategory extends Component {
             );
 
             this.env.services.notification.add(
-                "Currency synchronization completed successfully.",
+                "Category synchronization completed successfully.",
                 {
                     title: "Success",
                     type: "success",

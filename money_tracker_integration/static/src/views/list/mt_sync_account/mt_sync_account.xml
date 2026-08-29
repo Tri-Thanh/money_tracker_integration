@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
 
-    <t t-name="money_tracker_integration.MTSyncCategory">
-        <DropdownItem class="'o_export_all_menu'" onSelected.bind="onSyncCategory">
+    <t t-name="money_tracker_integration.MTSyncAccount">
+        <DropdownItem class="'o_export_all_menu'" onSelected.bind="onSyncAccount">
             <i class="fa fa-fw fa-refresh me-1"/>Synchronize
         </DropdownItem>
     </t>

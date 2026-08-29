@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+    <t t-name="money_tracker_integration.MTDisplayRemark">
+        <div class="o_mt_account_display">
+            <div class="o_mt_account_name">
+                <t t-esc="props.record.data[props.name]"/>
+            </div>
+
+            <div t-if="props.record.data.remark"
+                 class="o_mt_account_remark">
+                <t t-esc="props.record.data.remark"/>
+            </div>
+        </div>
+    </t>
+
+</templates>

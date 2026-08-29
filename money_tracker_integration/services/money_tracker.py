@@ -57,3 +57,8 @@ class MoneyTrackerService:
             endpoint="getTransactions",
             params=params,
         )
+
+    def get_accounts(self):
+        return self._request(
+            endpoint="getAccounts",
+        )

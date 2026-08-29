@@ -24,6 +24,7 @@
         'views/res_users_views.xml',
         'views/money_tracker_currency_views.xml',
         'views/money_tracker_category_views.xml',
+	'views/money_tracker_account_views.xml',
 
         # menu
         'views/menu.xml',
