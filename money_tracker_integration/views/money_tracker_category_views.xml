@@ -35,7 +35,6 @@
             </field>
         </record>
 
-
         <record id="money_tracker_category_action" model="ir.actions.act_window">
             <field name="name">Money Tracker - Categories</field>
             <field name="res_model">money_tracker.category</field>

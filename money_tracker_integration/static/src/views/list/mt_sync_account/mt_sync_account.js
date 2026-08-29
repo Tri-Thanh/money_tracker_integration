@@ -7,13 +7,13 @@ import {Component} from "@odoo/owl";
 const cogMenuRegistry = registry.category("cogMenu");
 
 /**
- * 'Money Tracker Currency' menu
+ * 'Money Tracker Category' menu
  *
- * This component is used to synchronize currencies with Money Tracker.
+ * This component is used to synchronize categories with Money Tracker.
  * @extends Component
  */
-export class MTSyncCurrency extends Component {
-    static template = "money_tracker_integration.MTSyncCurrency";
+export class MTSyncAccount extends Component {
+    static template = "money_tracker_integration.MTSyncAccount";
     static components = {DropdownItem};
     static props = {};
 
@@ -21,14 +21,17 @@ export class MTSyncCurrency extends Component {
     // Protected
     //---------------------------------------------------------------------
 
-    async onSyncCurrency() {
+    async onSyncAccount() {
         try {
             await this.env.model.orm.call(
                 this.env.model.config.resModel,
-                "sync_currencies",
+                "sync_accounts",
             );
+
+            await this.env.model.load();
+
             this.env.services.notification.add(
-                "Currency synchronization completed successfully.",
+                "Account synchronization completed successfully.",
                 {
                     title: "Success",
                     type: "success",
@@ -37,7 +40,7 @@ export class MTSyncCurrency extends Component {
             );
         } catch (error) {
             this.env.services.notification.add(
-                "Currency synchronization failed.",
+                "Account synchronization failed.",
                 {
                     title: "Error",
                     type: "danger",
@@ -49,13 +52,13 @@ export class MTSyncCurrency extends Component {
     }
 }
 
-export const mtSyncCurrencyItem = {
-    Component: MTSyncCurrency,
+export const mtSyncAccountItem = {
+    Component: MTSyncAccount,
     groupNumber: STATIC_ACTIONS_GROUP_NUMBER,
     isDisplayed: async (env) =>
         env.config.viewType === "list" &&
         !env.model.root.selection.length &&
-        env.model.config.resModel === 'money_tracker.currency'
+        env.model.config.resModel === 'money_tracker.account'
 };
 
-cogMenuRegistry.add("mt-sync-currency-menu", mtSyncCurrencyItem, {sequence: 36});
+cogMenuRegistry.add("mt-sync-account-menu", mtSyncAccountItem, {sequence: 38});

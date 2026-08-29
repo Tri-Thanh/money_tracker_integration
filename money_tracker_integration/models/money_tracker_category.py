@@ -9,6 +9,7 @@ _logger = logging.getLogger(__name__)
 class MoneyTrackerCategory(models.Model):
     _name = "money_tracker.category"
     _description = "Money Tracker Category"
+    _rec_name = "title"
 
     categoryID = fields.Char(
         string="Category External ID",

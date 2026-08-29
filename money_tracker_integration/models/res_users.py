@@ -19,7 +19,6 @@ class ResUsers(models.Model):
 
     def check_mt_response(self):
         self._check_api_token_empty()
-
         self.get_mt_currencies()
 
     def get_mt_currencies(self):
@@ -53,3 +52,11 @@ class ResUsers(models.Model):
             token=self.money_tracker_api_token,
         )
         return service.get_transactions(**params)
+
+    def get_mt_accounts(self):
+        self.ensure_one()
+        service = MoneyTrackerService(
+            env=self.env,
+            token=self.money_tracker_api_token,
+        )
+        return service.get_accounts()

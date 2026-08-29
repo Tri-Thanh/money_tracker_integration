@@ -24,6 +24,7 @@
                     <field name="symbol"/>
                     <field name="display_symbol" optional="hide"/>
                     <field name="locale"/>
+                    <field name="currency_id" optional="hide"/>
                     <field name="owner_id" column_invisible="1"/>
                 </list>
             </field>
