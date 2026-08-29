@@ -49,6 +49,10 @@ class MoneyTrackerCurrency(models.Model):
         string="Currency",
         readonly=True,
     )
+    active = fields.Boolean(
+        related="currency_id.active",
+        store=True,
+    )
 
     _sql_constraints = [
         ('unique_code_per_owner', 'UNIQUE(code, owner_id)', "Currency's Code must be unique"),
@@ -63,17 +67,22 @@ class MoneyTrackerCurrency(models.Model):
         currency_data = self.env['res.currency'].search(domain=[]).grouped(key='name')
         try:
             # remove all owner's data
-            self.env['money_tracker.currency'].search(domain=[
+            self.env['money_tracker.currency'].with_context(active_test=False).search(domain=[
                 ('owner_id', '=', current_user.id),
             ]).unlink()
-            # assign internal `currency_id`
+            # prepare data to create
+            to_create_data = []
             for mt_currency_data in mt_currencies_data:
+                if mt_currency_data.get('code') not in currency_data:
+                    continue
+
                 mt_currency_data['currency_id'] = currency_data.get(
                     mt_currency_data.get('code'),
                     self.env['res.currency']
                 ).id
+                to_create_data.append(mt_currency_data)
             # make new recordset
-            self.env[self._name].with_user(user=current_user).create(mt_currencies_data)
+            self.env[self._name].with_user(user=current_user).create(to_create_data)
         except Exception as e:
             _logger.exception(msg=e)
             raise ValidationError(e)
