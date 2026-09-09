@@ -174,6 +174,11 @@ class MoneyTrackerTransaction(models.Model):
                 ('owner_id', '=', self.env.user.id),
             ]
         ).grouped(key='categoryID')
+        mt_account_data = self.env['money_tracker.account'].search(
+            domain=[
+                ('owner_id', '=', self.env.user.id),
+            ]
+        ).grouped(key='accountID')
         # drop or update model-fields
         for data in transactions_data:
             parsed = {}
@@ -182,8 +187,14 @@ class MoneyTrackerTransaction(models.Model):
                 if api_key in drop_fields:
                     continue
                 model_field_name = mapping_fields.get(api_key, api_key)
+                # mapping interanl field
                 if model_field_name == 'incomeExpenditureCategoryExternalID':
                     parsed['mt_category_id'] = mt_categoriy_data.get(api_value, self.env['money_tracker.category']).id
+                if model_field_name == 'fromAccountExternalID':
+                    parsed['from_mt_account_id'] = mt_account_data.get(api_value, self.env['money_tracker.account']).id
+                elif model_field_name == 'toAccountExternalID':
+                    parsed['to_mt_account_id'] = mt_account_data.get(api_value, self.env['money_tracker.account']).id
+                # convert amount base type
                 if model_field_name == 'amount' and transaction_type == '2':
                     api_value = -abs(float(api_value or '0.0'))
                 parsed[model_field_name] = api_value
