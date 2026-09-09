@@ -21,7 +21,7 @@ class MTParseDatetime:
         else:
             raise ValueError(f"Unsupported epoch unit: {unit}")
 
-        return datetime.fromtimestamp(timestamp, tz=self.DEFAULT_TIMEZONE)
+        return datetime.fromtimestamp(timestamp)
 
     def parse_mt_datetime(self, value, unit='ms', output=fields.Datetime):
         dt_utc = self._epoch_to_utc(value=value, unit=unit)
