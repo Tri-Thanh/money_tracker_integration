@@ -5,6 +5,11 @@
                   name="Money Tracker"
                   web_icon="money_tracker_integration,static/description/icon.png"
                   sequence="100">
+            <menuitem id="money_tracker_all_transactions"
+                      name="Transactions"
+                      sequence="1"
+                      action="money_tracker_integration.money_tracker_transaction_action"
+            />
             <menuitem id="money_tracker_app_configuration"
                       name="Configuration"
                       sequence="100">
