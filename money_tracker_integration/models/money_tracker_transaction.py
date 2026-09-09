@@ -187,7 +187,7 @@ class MoneyTrackerTransaction(models.Model):
                 if api_key in drop_fields:
                     continue
                 model_field_name = mapping_fields.get(api_key, api_key)
-                # mapping interanl field
+                # mapping internal field
                 if model_field_name == 'incomeExpenditureCategoryExternalID':
                     parsed['mt_category_id'] = mt_categoriy_data.get(api_value, self.env['money_tracker.category']).id
                 if model_field_name == 'fromAccountExternalID':
