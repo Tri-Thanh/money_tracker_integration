@@ -183,6 +183,8 @@ class MoneyTrackerTransaction(models.Model):
         for data in transactions_data:
             parsed = {}
             transaction_type = data.get('type')
+            if transaction_type not in ('1', '2', '3'):
+                continue
             for api_key, api_value in data.items():
                 if api_key in drop_fields:
                     continue
