@@ -14,6 +14,10 @@
                                 string="Type"
                                 context="{'group_by': 'type'}"
                         />
+                        <filter name="groupby_transaction_date"
+                                string="Daily"
+                                context="{'group_by': 'transaction_date:day'}"
+                        />
                     </group>
                     <searchpanel>
                         <field name="type" icon="fa-tags" enable_counters="1"/>
@@ -26,31 +30,35 @@
             <field name="name">money_tracker_transaction_view_list</field>
             <field name="model">money_tracker.transaction</field>
             <field name="arch" type="xml">
-                <list create="0" edit="0" delete="0" expand="context.get('expand')">
+                <list create="0" edit="0" delete="0"
+                      default_order="transaction_date desc, transaction_add_time desc"
+                      expand="context.get('expand')">
                     <field name="type"
                            widget="badge"
-                           decoration-danger="type == '2'"
                            decoration-success="type == '1'"
-                           decoration-muted="type == '3'"
+                           decoration-danger="type == '2'"
+                           decoration-info="type == '3'"
+                           decoration-muted="type == '4'"
+                           decoration-primary="type in ('5', '6')"
                     />
-                    <field name="remark"/>
+                    <field name="display_name" string="Description"/>
                     <field name="transaction_date"
                            help="The date of transaction"
                            string="Transaction Date"/>
                     <field name="transaction_add_time"
                            help="The real create-date of transaction"
                            string="Transaction Create date"/>
-                    <field name="mt_category_id"/>
                     <field name="from_mt_account_id"/>
                     <field name="to_mt_account_id"/>
                     <field name="amount"
                            widget="monetary"
-                           sum="Total"
                            options="{'currency_field': 'from_mt_account_currency_id'}"
                     />
 
-                    <field name="incomeExpenditureCategoryExternalID" optional="hide"/>
-                    <field name="from_mt_account_currency_id" optional="hide"/>
+                    <field name="remark" column_invisible="1"/>
+                    <field name="mt_category_id" column_invisible="1"/>
+                    <field name="incomeExpenditureCategoryExternalID" column_invisible="1"/>
+                    <field name="from_mt_account_currency_id" column_invisible="1"/>
                 </list>
             </field>
         </record>
@@ -59,7 +67,7 @@
             <field name="name">Money Tracker - Transaction</field>
             <field name="res_model">money_tracker.transaction</field>
             <field name="view_mode">list</field>
-            <field name="context">{'expand': True}</field>
+            <field name="context">{'expand': True, 'search_default_groupby_transaction_date': 1}</field>
             <field name="search_view_id" ref="money_tracker_integration.money_tracker_transaction_view_search"/>
         </record>
     </data>

@@ -7,9 +7,9 @@ import {Component} from "@odoo/owl";
 const cogMenuRegistry = registry.category("cogMenu");
 
 /**
- * 'Money Tracker Category' menu
+ * 'Money Tracker Transaction' menu
  *
- * This component is used to synchronize categories with Money Tracker.
+ * This component is used to synchronize transactinos with Money Tracker.
  * @extends Component
  */
 export class MTSyncTransaction extends Component {
@@ -22,6 +22,7 @@ export class MTSyncTransaction extends Component {
     //---------------------------------------------------------------------
 
     async onSyncTransactions() {
+        // get all transactions from Money Tracker app
         try {
             await this.env.model.orm.call(
                 this.env.model.config.resModel,

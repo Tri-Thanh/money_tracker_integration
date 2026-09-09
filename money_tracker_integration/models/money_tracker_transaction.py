@@ -13,6 +13,7 @@ class MoneyTrackerTransaction(models.Model):
     _name = "money_tracker.transaction"
     _description = "Money Tracker Transaction"
     _rec_name = "remark"
+    _order = "transaction_date desc, transaction_add_time desc"
 
     # owner fields
     owner_id = fields.Many2one(
@@ -39,6 +40,9 @@ class MoneyTrackerTransaction(models.Model):
             ('1', 'Income'),
             ('2', "Expense"),
             ('3', "Transfer"),
+            ('4', "Account Balance Adjustment"),
+            ('5', "AA Shared Expense"),
+            ('6', "AA Settlement"),
         ],
         string="Type",
         required=True,
@@ -170,17 +174,18 @@ class MoneyTrackerTransaction(models.Model):
                 ('owner_id', '=', self.env.user.id),
             ]
         ).grouped(key='categoryID')
-
         # drop or update model-fields
         for data in transactions_data:
             parsed = {}
+            transaction_type = data.get('type')
             for api_key, api_value in data.items():
                 if api_key in drop_fields:
                     continue
                 model_field_name = mapping_fields.get(api_key, api_key)
                 if model_field_name == 'incomeExpenditureCategoryExternalID':
-                    print(mt_categoriy_data.get(api_value, self.env['money_tracker.category']))
                     parsed['mt_category_id'] = mt_categoriy_data.get(api_value, self.env['money_tracker.category']).id
+                if model_field_name == 'amount' and transaction_type == '2':
+                    api_value = -abs(float(api_value or '0.0'))
                 parsed[model_field_name] = api_value
             yield parsed
 
@@ -190,7 +195,6 @@ class MoneyTrackerTransaction(models.Model):
         current_user._check_api_token_empty()
         datas, meta = current_user.get_mt_transactions(**kwargs)
         parsed_data = self.parse_mt_transaction_data(transactions_data=datas)
-
         try:
             self.env['money_tracker.transaction'].search(
                 domain=[
@@ -230,3 +234,6 @@ class MoneyTrackerTransaction(models.Model):
                 output=self._fields.get('transaction_add_time'),
             )
 
+    def _compute_display_name(self):
+        for transaction in self:
+            transaction.display_name = transaction.remark or transaction.mt_category_id.display_name
