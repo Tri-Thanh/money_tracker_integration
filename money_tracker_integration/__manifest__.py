@@ -20,6 +20,10 @@
         'data/ir_config_parameter.xml',
         # security
         'security/ir.model.access.csv',
+        'security/mt_currency_rules.xml',
+        'security/mt_category_rules.xml',
+        'security/mt_account_rules.xml',
+        'security/mt_transaction_rules.xml',
         # views
         'views/res_users_views.xml',
         'views/money_tracker_currency_views.xml',
