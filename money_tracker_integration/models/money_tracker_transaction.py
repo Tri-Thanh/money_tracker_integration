@@ -249,4 +249,20 @@ class MoneyTrackerTransaction(models.Model):
 
     def _compute_display_name(self):
         for transaction in self:
-            transaction.display_name = transaction.remark or transaction.mt_category_id.display_name
+            if transaction.type in ('1', '2'):
+                transaction.display_name = transaction.remark or transaction.mt_category_id.display_name
+            elif transaction.type == '3':
+                transaction.display_name = "{from_account} => {to_account}".format(
+                    from_account="{} ({})".format(
+                        transaction.from_mt_account_id.name,
+                        dict(self.env['money_tracker.account']._fields['type']._description_selection(
+                            env=self.env,
+                        )).get(transaction.from_mt_account_id.type),
+                    ),
+                    to_account="{} ({})".format(
+                        transaction.to_mt_account_id.name,
+                        dict(self.env['money_tracker.account']._fields['type']._description_selection(
+                            env=self.env,
+                        )).get(transaction.to_mt_account_id.type),
+                    ),
+                )

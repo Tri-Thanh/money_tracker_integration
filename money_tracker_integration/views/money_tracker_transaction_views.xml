@@ -46,10 +46,11 @@
                            help="The date of transaction"
                            string="Transaction Date"/>
                     <field name="transaction_add_time"
+                           optional="hide"
                            help="The real create-date of transaction"
                            string="Transaction Create date"/>
-                    <field name="from_mt_account_id"/>
-                    <field name="to_mt_account_id"/>
+                    <field name="from_mt_account_id" column_invisible="1"/>
+                    <field name="to_mt_account_id" column_invisible="1"/>
                     <field name="amount"
                            widget="monetary"
                            options="{'currency_field': 'from_mt_account_currency_id'}"
