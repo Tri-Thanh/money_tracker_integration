@@ -9,7 +9,7 @@ const cogMenuRegistry = registry.category("cogMenu");
 /**
  * 'Money Tracker Transaction' menu
  *
- * This component is used to synchronize transactinos with Money Tracker.
+ * This component is used to synchronize transactions with Money Tracker.
  * @extends Component
  */
 export class MTSyncTransaction extends Component {
