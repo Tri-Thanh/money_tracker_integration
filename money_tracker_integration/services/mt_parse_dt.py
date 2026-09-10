@@ -9,8 +9,9 @@ class MTParseDatetime:
     def __init__(self):
         pass
 
-    def _epoch_to_utc(self, value, unit):
-        if value is (None, False, ''):
+    @staticmethod
+    def _epoch_to_utc(value, unit):
+        if value in (None, False, ''):
             return False
         timestamp = int(value)
 
