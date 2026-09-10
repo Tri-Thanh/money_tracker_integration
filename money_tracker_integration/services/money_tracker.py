@@ -1,6 +1,8 @@
 import requests
 from typing import Dict, Any, Optional
 
+from odoo import fields
+
 
 class MoneyTrackerService:
     FULL_SYNC_END_DATE = "9999-12-31"
@@ -56,7 +58,19 @@ class MoneyTrackerService:
     def get_transactions(self, **params):
         limit = int(params.get('limit', 500))
         offset = int(params.get('offset', 0))
-        if not params.get('end_date'):
+        start_date = params.get('start_date', False)
+        end_date = params.get('end_date', False)
+        if start_date:
+            max_end_date = fields.Date.from_string(start_date).add(days=365)
+            if not end_date:
+                params.setdefault('end_date', fields.Date.to_string(value=max_end_date))
+            elif end_date >= max_end_date:
+                end_date = max_end_date
+        if end_date:
+            params.update({
+                'end_date': end_date,
+            })
+        else:
             params.setdefault('end_date', self.FULL_SYNC_END_DATE)
 
         transaction_data = []
