@@ -184,10 +184,10 @@ class MoneyTrackerTransaction(models.Model):
                 ('owner_id', '=', self.env.user.id),
             ]
         ).grouped(key='accountID')
-        # drop or update model-fields
+
         for data in transactions_data:
             parsed = {}
-            transaction_type = data.get('type')
+            transaction_type = str(data.get('type', ''))
             if transaction_type not in ('1', '2', '3'):
                 continue
             for api_key, api_value in data.items():
