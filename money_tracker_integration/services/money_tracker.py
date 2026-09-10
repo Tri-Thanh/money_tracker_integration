@@ -85,8 +85,9 @@ class MoneyTrackerService:
                 endpoint="getTransactions",
                 params=_params,
             )
+            if data and isinstance(data, list):
+                transaction_data.extend(data)
 
-            transaction_data.extend(data)
             transaction_meta = meta or {}
 
             if transaction_meta.get('has_more', False):
