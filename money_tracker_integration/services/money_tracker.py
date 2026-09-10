@@ -2,6 +2,7 @@ import requests
 from typing import Dict, Any, Optional
 
 from odoo import fields
+from odoo.exceptions import ValidationError
 
 
 class MoneyTrackerService:
@@ -58,18 +59,16 @@ class MoneyTrackerService:
     def get_transactions(self, **params):
         limit = int(params.get('limit', 500))
         offset = int(params.get('offset', 0))
-        start_date = params.get('start_date', False)
-        end_date = params.get('end_date', False)
+        start_date = fields.Date.to_date(value=params.get('start_date'))
+        end_date = fields.Date.to_date(value=params.get('end_date'))
+
         if start_date:
-            max_end_date = fields.Date.from_string(start_date).add(days=365)
-            if not end_date:
-                params.setdefault('end_date', fields.Date.to_string(value=max_end_date))
-            elif end_date >= max_end_date:
+            max_end_date = fields.Date.add(start_date, days=365)
+            if end_date and end_date < start_date:
+                raise ValidationError("param `end_date` must be greater than `start_date`")
+            if not end_date or end_date > max_end_date:
                 end_date = max_end_date
-        if end_date:
-            params.update({
-                'end_date': end_date,
-            })
+            params['end_date'] = end_date
         else:
             params.setdefault('end_date', self.FULL_SYNC_END_DATE)
 
