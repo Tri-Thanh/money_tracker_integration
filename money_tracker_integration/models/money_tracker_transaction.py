@@ -98,6 +98,11 @@ class MoneyTrackerTransaction(models.Model):
         string="MT Account Currency ID",
         related="from_mt_account_id.mt_currency_id",
     )
+    from_currency_id = fields.Many2one(
+        comodel_name="res.currency",
+        string="Currency",
+        related="from_mt_account_currency_id.currency_id",
+    )
     to_mt_account_id = fields.Many2one(
         comodel_name='money_tracker.account',
         string="MT To Account ID",
@@ -248,21 +253,22 @@ class MoneyTrackerTransaction(models.Model):
             )
 
     def _compute_display_name(self):
+        # not set dependency field to avoid display_name not reload
         for transaction in self:
             if transaction.type in ('1', '2'):
                 transaction.display_name = transaction.remark or transaction.mt_category_id.display_name
             elif transaction.type == '3':
                 transaction.display_name = "{from_account} => {to_account}".format(
-                    from_account="{} ({})".format(
+                    from_account="{} {}".format(
                         transaction.from_mt_account_id.name,
-                        dict(self.env['money_tracker.account']._fields['type']._description_selection(
-                            env=self.env,
-                        )).get(transaction.from_mt_account_id.type),
+                        "({})".format(
+                            transaction.from_mt_account_id.remark
+                        ) if transaction.from_mt_account_id.remark else "",
                     ),
-                    to_account="{} ({})".format(
+                    to_account="{} {}".format(
                         transaction.to_mt_account_id.name,
-                        dict(self.env['money_tracker.account']._fields['type']._description_selection(
-                            env=self.env,
-                        )).get(transaction.to_mt_account_id.type),
+                        "({})".format(
+                            transaction.to_mt_account_id.remark
+                        ) if transaction.to_mt_account_id.remark else "",
                     ),
                 )

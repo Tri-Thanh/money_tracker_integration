@@ -44,7 +44,7 @@
                     <field name="display_name" string="Description"/>
                     <field name="transaction_date"
                            help="The date of transaction"
-                           string="Transaction Date"/>
+                           string="Date"/>
                     <field name="transaction_add_time"
                            optional="hide"
                            help="The real create-date of transaction"
@@ -53,13 +53,14 @@
                     <field name="to_mt_account_id" column_invisible="1"/>
                     <field name="amount"
                            widget="monetary"
-                           options="{'currency_field': 'from_mt_account_currency_id'}"
+                           options="{'currency_field': 'from_currency_id'}"
                     />
 
                     <field name="remark" column_invisible="1"/>
                     <field name="mt_category_id" column_invisible="1"/>
                     <field name="incomeExpenditureCategoryExternalID" column_invisible="1"/>
                     <field name="from_mt_account_currency_id" column_invisible="1"/>
+                    <field name="from_currency_id" column_invisible="1"/>
                 </list>
             </field>
         </record>
