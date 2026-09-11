@@ -1,6 +1,6 @@
 import logging
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from odoo.tools import Query, SQL
 
@@ -240,6 +240,9 @@ class MoneyTrackerTransaction(models.Model):
         current_user = self.env.user
         current_user._check_api_token_empty()
         datas, meta = current_user.get_mt_transactions(**kwargs)
+        if not datas:
+            raise ValidationError(_("Money Tracker returned invalid transaction data."))
+
         parsed_data = self.parse_mt_transaction_data(transactions_data=datas)
         try:
             self.env['money_tracker.transaction'].search(

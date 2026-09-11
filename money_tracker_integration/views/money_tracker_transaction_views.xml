@@ -19,7 +19,7 @@
                     />
                     <group string="Group By">
                         <filter name="groupby_type"
-                                string="Type"
+                                string="Entry Date"
                                 context="{'group_by': 'type'}"
                         />
                         <filter name="groupby_transaction_date"
