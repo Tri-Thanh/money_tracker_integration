@@ -4,6 +4,7 @@
         <menuitem id="money_tracker_app_menu"
                   name="Money Tracker"
                   web_icon="money_tracker_integration,static/description/icon.png"
+                  action="money_tracker_integration.action_open_mt_account"
                   sequence="100">
             <menuitem id="money_tracker_all_transactions"
                       name="Transactions"

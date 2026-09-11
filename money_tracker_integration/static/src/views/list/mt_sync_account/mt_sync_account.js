@@ -56,9 +56,9 @@ export const mtSyncAccountItem = {
     Component: MTSyncAccount,
     groupNumber: STATIC_ACTIONS_GROUP_NUMBER,
     isDisplayed: async (env) =>
-        env.config.viewType === "list" &&
-        !env.model.root.selection.length &&
-        env.model.config.resModel === 'money_tracker.account'
+        env.model?.config?.resModel === 'money_tracker.account' &&
+        ["list", "kanban"].includes(env.config.viewType) &&
+        !env.model.root?.selection?.length
 };
 
 cogMenuRegistry.add("mt-sync-account-menu", mtSyncAccountItem, {sequence: 38});

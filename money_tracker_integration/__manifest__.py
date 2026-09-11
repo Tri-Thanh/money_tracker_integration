@@ -40,6 +40,7 @@
         'web.assets_backend': [
             'money_tracker_integration/static/src/views/list/mt_sync_data/*',
             'money_tracker_integration/static/src/views/widget/mt_display_remark/*',
+            'money_tracker_integration/static/src/views/kanban/*',
             'money_tracker_integration/static/src/views/list/list_renderer.js',
             'money_tracker_integration/static/src/views/list/list_renderer.scss',
         ],
