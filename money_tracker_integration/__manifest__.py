@@ -18,6 +18,7 @@
     'data': [
         # data
         'data/ir_config_parameter.xml',
+        'data/cron.xml',
         # security
         'security/ir.model.access.csv',
         'security/mt_currency_rules.xml',
