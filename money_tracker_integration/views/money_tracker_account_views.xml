@@ -52,5 +52,15 @@
             <field name="context">{'with_remark': True, 'search_default_groupby_type': True, 'expand': True}</field>
             <field name="search_view_id" ref="money_tracker_integration.money_tracker_account_view_search"/>
         </record>
+
+        <record id="action_open_mt_account" model="ir.actions.server">
+            <field name="name">Money Tracker: Account</field>
+            <field name="path">mt_account</field>
+            <field name="model_id" ref="money_tracker_integration.model_money_tracker_account"/>
+            <field name="binding_model_id" eval="False"/>
+            <field name="state">code</field>
+            <field name="groups_id" eval="[(4, ref('base.group_user'))]"/>
+            <field name="code">action = model.action_open_data()</field>
+        </record>
     </data>
 </odoo>
