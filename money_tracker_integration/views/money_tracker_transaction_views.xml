@@ -19,11 +19,11 @@
                     />
                     <group string="Group By">
                         <filter name="groupby_type"
-                                string="Entry Date"
+                                string="Type"
                                 context="{'group_by': 'type'}"
                         />
                         <filter name="groupby_transaction_date"
-                                string="Daily"
+                                string="Entry Date"
                                 context="{'group_by': 'transaction_date:day'}"
                         />
                     </group>

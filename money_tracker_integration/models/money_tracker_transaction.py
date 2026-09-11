@@ -152,6 +152,35 @@ class MoneyTrackerTransaction(models.Model):
         return super(MoneyTrackerTransaction, self)._read_group_select(aggregate_spec, query)
 
     @api.model
+    def web_read_group(self, domain, fields, groupby, limit=None, offset=0, orderby=False, lazy=True):
+        result = super().web_read_group(
+            domain,
+            fields,
+            groupby,
+            limit=limit,
+            offset=offset,
+            orderby=orderby,
+            lazy=lazy,
+        )
+        if not groupby or not any(field in ('amount', 'amount:sum') for field in fields):
+            return result
+
+        for group in result.get('groups', []):
+            amount_by_type = dict(
+                self._read_group(
+                    group.get('__domain', []),
+                    groupby=['type'],
+                    aggregates=['amount:sum'],
+                )
+            )
+            group['amount'] = {
+                'value': group.get('amount') or 0.0,
+                'income': amount_by_type.get('1', 0.0) or 0.0,
+                'expense': amount_by_type.get('2', 0.0) or 0.0,
+            }
+        return result
+
+    @api.model
     def _get_mt_field_unit(self, api_field_name=''):
         return {
             'date_time': 'milliseconds',

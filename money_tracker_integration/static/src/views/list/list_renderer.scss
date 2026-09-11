@@ -1,7 +1,37 @@
+.o_renderer_with_searchpanel.o_mt_transaction_list_view {
+    min-width: 0;
+}
+
 .o_list_view {
     .mt_remark_display_name {
         white-space: pre-line !important;
         overflow: visible !important;
         text-overflow: unset !important;
+    }
+
+    .o_mt_transaction_group_dashboard_row > td {
+        background-color: #f8f9fa;
+        border-top: 0;
+        padding: 6px var(--ListRenderer-table-padding-x);
+    }
+
+    .o_mt_transaction_group_dashboard {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 8px 16px;
+        max-width: 100%;
+    }
+
+    .o_mt_transaction_group_metric {
+        display: inline-grid;
+        grid-template-columns: max-content max-content;
+        column-gap: 6px;
+        align-items: baseline;
+        white-space: nowrap;
+    }
+
+    .o_mt_transaction_group_metric_value {
+        text-align: right;
     }
 }

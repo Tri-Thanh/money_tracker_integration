@@ -24,6 +24,18 @@ msgstr "Tài sản"
 
 #. module: money_tracker_integration
 #. odoo-javascript
+#: code:addons/money_tracker_integration/static/src/views/list/list_renderer.js:0
+msgid "Chi tiêu"
+msgstr "Chi tiêu"
+
+#. module: money_tracker_integration
+#. odoo-javascript
+#: code:addons/money_tracker_integration/static/src/views/list/list_renderer.js:0
+msgid "Thu nhập"
+msgstr "Thu nhập"
+
+#. module: money_tracker_integration
+#. odoo-javascript
 #: code:addons/money_tracker_integration/static/src/views/kanban/mt_account_dashboard.js:0
 msgid "Liabilities"
 msgstr "Nợ phải trả"
