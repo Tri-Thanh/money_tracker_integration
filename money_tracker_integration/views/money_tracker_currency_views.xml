@@ -37,14 +37,14 @@
             <field name="search_view_id" ref="money_tracker_integration.money_tracker_currency_view_search"/>
         </record>
 
-        <record id="money_tracker_currency_synchronize" model="ir.actions.server">
-            <field name="name">Money Tracker - Currencies: Synchronization</field>
-            <field name="path">mt_sync_currency</field>
+        <record id="action_open_mt_currency" model="ir.actions.server">
+            <field name="name">Money Tracker: Curriencies</field>
+            <field name="path">mt_currency</field>
             <field name="model_id" ref="money_tracker_integration.model_money_tracker_currency"/>
             <field name="binding_model_id" eval="False"/>
             <field name="state">code</field>
             <field name="groups_id" eval="[(4, ref('base.group_user'))]"/>
-            <field name="code">action = model.sync_currencies()</field>
+            <field name="code">action = model.action_open_data()</field>
         </record>
     </data>
 </odoo>

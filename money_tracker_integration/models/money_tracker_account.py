@@ -2,12 +2,17 @@ import logging
 
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+from odoo.osv import expression
+from odoo.tools import format_amount
 
 _logger = logging.getLogger(__name__)
 
 
 class MoneyTrackerAccount(models.Model):
     _name = "money_tracker.account"
+    _inherit = [
+        'money_tracker.mixin',
+    ]
     _description = "Money Tracker Account"
     _rec_name = "name"
     _order = "order_num"
@@ -115,6 +120,69 @@ class MoneyTrackerAccount(models.Model):
         string="Internal Currency",
         store=True,
     )
+    display_currency_amount = fields.Char(
+        string="Display Currency Amount",
+        compute="_compute_display_currency_amount",
+    )
+
+    @api.model
+    def sync_data(self):
+        self.sync_accounts()
+
+    @api.model
+    def action_open_mt_data(self):
+        action = self.env['ir.actions.actions']._for_xml_id(
+            full_xml_id='money_tracker_integration.money_tracker_account_action',
+        )
+        return action
+
+    @api.model
+    def get_included_balance_total(self, domain=None):
+        total_domain = expression.AND([
+            domain or [],
+            [('is_not_include_in_total_balance', '=', False)],
+        ])
+        total = self._read_group(
+            total_domain,
+            aggregates=['currency_amount:sum'],
+        )[0][0]
+        return total or 0.0
+
+    @api.model
+    def retrieve_dashboard(self, domain=None):
+        self.browse().check_access('read')
+
+        dashboard_domain = domain or []
+        included_domain = expression.AND([
+            dashboard_domain,
+            [('is_not_include_in_total_balance', '=', False)],
+        ])
+        grouped_amounts = self._read_group(
+            included_domain,
+            groupby=['type'],
+            aggregates=['currency_amount:sum'],
+        )
+        amount_by_type = {
+            account_type: amount or 0.0
+            for account_type, amount in grouped_amounts
+        }
+        asset_total = sum(
+            amount
+            for account_type, amount in amount_by_type.items()
+            if account_type != '7'
+        )
+        receivable_total = abs(amount_by_type.get('6', 0.0))
+        liability_total = abs(amount_by_type.get('7', 0.0))
+        net_total = asset_total - liability_total
+        currencies = self.search(included_domain).mapped('internal_currency_id')
+        currency = currencies if len(currencies) == 1 else self.env.company.currency_id
+
+        return {
+            'asset_total': format_amount(self.env, asset_total, currency),
+            'liability_total': format_amount(self.env, liability_total, currency),
+            'net_total': format_amount(self.env, net_total, currency),
+            'receivable_total': format_amount(self.env, receivable_total, currency),
+        }
 
     @api.model
     def get_mapping_fields(self):
@@ -125,6 +193,16 @@ class MoneyTrackerAccount(models.Model):
             'user_id': 'userID',
             'currency_id': 'currencyID',
         }
+
+    @api.depends('currency_amount', 'internal_currency_id')
+    def _compute_display_currency_amount(self):
+        company_currency = self.env.company.currency_id
+        for account in self:
+            account.display_currency_amount = format_amount(
+                self.env,
+                account.currency_amount or 0.0,
+                account.internal_currency_id or company_currency,
+            )
 
     @api.model
     def sync_accounts(self):
@@ -140,6 +218,7 @@ class MoneyTrackerAccount(models.Model):
         # prepare mapping field
         mapping_fields = self.get_mapping_fields()
         for data in account_data:
+            data['is_not_include_in_total_balance'] = bool(int(data.get('is_not_include_in_total_balance', 0)))
             for fetch_field, model_field in mapping_fields.items():
                 if fetch_field in data:
                     data[model_field] = data.pop(fetch_field)

@@ -1,0 +1,53 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* money_tracker_integration
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-11 00:00+0000\n"
+"PO-Revision-Date: 2026-09-11 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: money_tracker_integration
+#. odoo-javascript
+#: code:addons/money_tracker_integration/static/src/views/kanban/mt_account_dashboard.js:0
+msgid "Assets"
+msgstr "Tài sản"
+
+#. module: money_tracker_integration
+#. odoo-javascript
+#: code:addons/money_tracker_integration/static/src/views/list/list_renderer.js:0
+msgid "Chi tiêu"
+msgstr "Chi tiêu"
+
+#. module: money_tracker_integration
+#. odoo-javascript
+#: code:addons/money_tracker_integration/static/src/views/list/list_renderer.js:0
+msgid "Thu nhập"
+msgstr "Thu nhập"
+
+#. module: money_tracker_integration
+#. odoo-javascript
+#: code:addons/money_tracker_integration/static/src/views/kanban/mt_account_dashboard.js:0
+msgid "Liabilities"
+msgstr "Nợ phải trả"
+
+#. module: money_tracker_integration
+#. odoo-javascript
+#: code:addons/money_tracker_integration/static/src/views/kanban/mt_account_dashboard.js:0
+msgid "Net Assets"
+msgstr "Tài sản ròng"
+
+#. module: money_tracker_integration
+#. odoo-javascript
+#: code:addons/money_tracker_integration/static/src/views/kanban/mt_account_dashboard.js:0
+msgid "Receivables"
+msgstr "Phải thu"
