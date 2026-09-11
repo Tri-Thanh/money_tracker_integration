@@ -2,6 +2,7 @@ import logging
 
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+from odoo.osv import expression
 
 _logger = logging.getLogger(__name__)
 
@@ -46,6 +47,7 @@ class MoneyTrackerAccount(models.Model):
         ],
         string="Type",
         readonly=True,
+        group_expand="_expand_type",
     )
     name = fields.Char(
         string="Account Name",
@@ -131,6 +133,18 @@ class MoneyTrackerAccount(models.Model):
         return action
 
     @api.model
+    def get_included_balance_total(self, domain=None):
+        total_domain = expression.AND([
+            domain or [],
+            [('is_not_include_in_total_balance', '=', False)],
+        ])
+        total = self._read_group(
+            total_domain,
+            aggregates=['currency_amount:sum'],
+        )[0][0]
+        return total or 0.0
+
+    @api.model
     def get_mapping_fields(self):
         return {
             # fetch-field: model-field
@@ -154,6 +168,7 @@ class MoneyTrackerAccount(models.Model):
         # prepare mapping field
         mapping_fields = self.get_mapping_fields()
         for data in account_data:
+            data['is_not_include_in_total_balance'] = bool(int(data.get('is_not_include_in_total_balance', 0)))
             for fetch_field, model_field in mapping_fields.items():
                 if fetch_field in data:
                     data[model_field] = data.pop(fetch_field)
@@ -175,3 +190,6 @@ class MoneyTrackerAccount(models.Model):
         finally:
             self.env['money_tracker.account'].flush_model()
             self.env['money_tracker.account'].flush_recordset()
+
+    def _expand_type(self, types, domain):
+        return [key for key, value in self._fields['type'].selection]
