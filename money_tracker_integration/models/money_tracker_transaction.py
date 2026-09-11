@@ -2,6 +2,7 @@ import logging
 
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+from odoo.tools import Query, SQL
 
 from ..services.mt_parse_dt import MTParseDatetime
 
@@ -122,6 +123,26 @@ class MoneyTrackerTransaction(models.Model):
         store=True,
         compute="_compute_transaction_add_time",
     )
+
+    def _read_group_select(self, aggregate_spec: str, query: Query):
+        if aggregate_spec == 'amount:sum' and self.env.context.get('only_income_expense'):
+            amount_sql = self._field_to_sql(
+                alias=self._table,
+                fname='amount',
+                query=query,
+            )
+            type_sql = self._field_to_sql(
+                alias=self._table,
+                fname='type',
+                query=query
+            )
+            return SQL(
+                "SUM(CASE WHEN %s IN %s THEN %s ELSE 0 END)",
+                type_sql,
+                ('1', '2'),
+                amount_sql
+            )
+        return super(MoneyTrackerTransaction, self)._read_group_select(aggregate_spec, query)
 
     @api.model
     def _get_mt_field_unit(self, api_field_name=''):

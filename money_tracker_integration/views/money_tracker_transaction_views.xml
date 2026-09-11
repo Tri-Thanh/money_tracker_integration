@@ -69,7 +69,7 @@
             <field name="name">Money Tracker - Transaction</field>
             <field name="res_model">money_tracker.transaction</field>
             <field name="view_mode">list</field>
-            <field name="context">{'expand': True, 'search_default_groupby_transaction_date': 1}</field>
+            <field name="context">{'expand': True, 'search_default_groupby_transaction_date': 1, 'only_income_expense': 1}</field>
             <field name="search_view_id" ref="money_tracker_integration.money_tracker_transaction_view_search"/>
         </record>
     </data>
