@@ -7,6 +7,7 @@
     'author': "L-Tr-Thanh (ltrthanh.dev@gmail.com)",
     'category': 'Uncategorized',
     'version': '18.0.0.0.0',
+    'license': "LGPL-3",
 
     # any module necessary for this one to work correctly
     'depends': [

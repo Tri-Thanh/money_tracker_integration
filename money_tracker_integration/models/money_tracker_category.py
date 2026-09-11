@@ -39,7 +39,7 @@ class MoneyTrackerCategory(models.Model):
     )
 
     _sql_constraints = [
-        ('unique_categoryid_per_owner', 'UNIQUE(categoryID, owner_id)', "Category's ID must be unique"),
+        ('unique_categoryid_per_owner', 'UNIQUE("categoryID", owner_id)', "Category's ID must be unique"),
     ]
 
     @api.model
