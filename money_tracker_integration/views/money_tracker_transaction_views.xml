@@ -49,7 +49,9 @@
                            decoration-muted="type == '4'"
                            decoration-primary="type in ('5', '6')"
                     />
-                    <field name="display_name" string="Description"/>
+                    <field name="display_name" string="Description"
+                           widget="mt_display_remark"
+                           options="{'remark_field': 'mt_category_id'}"/>
                     <field name="transaction_date"
                            help="The date of transaction"
                            string="Date"/>
@@ -65,7 +67,7 @@
                     />
 
                     <field name="remark" column_invisible="1"/>
-                    <field name="mt_category_id" column_invisible="1"/>
+                    <field name="mt_category_id" string="Category" column_invisible="1"/>
                     <field name="incomeExpenditureCategoryExternalID" column_invisible="1"/>
                     <field name="from_mt_account_currency_id" column_invisible="1"/>
                     <field name="from_currency_id" column_invisible="1"/>
