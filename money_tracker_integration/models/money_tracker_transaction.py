@@ -88,10 +88,6 @@ class MoneyTrackerTransaction(models.Model):
         string="Amount",
         readonly=True,
     )
-    account_currency_amount = fields.Float(
-        string="Account Currency Amount",
-        readonly=True,
-    )
     remark = fields.Char(
         string="Remark",
         readonly=True,
@@ -192,6 +188,7 @@ class MoneyTrackerTransaction(models.Model):
         return [
             'user_id',
             'account_currency_id',
+            'account_currency_amount',
             'foreign_currency_id',
             'foreign_currency_amount',
             'pictures',
@@ -219,7 +216,7 @@ class MoneyTrackerTransaction(models.Model):
         for data in transactions_data:
             parsed = {}
             transaction_type = str(data.get('type', ''))
-            if transaction_type not in ('1', '2', '3', '4'):
+            if transaction_type not in ('1', '2', '3'):
                 continue
             for api_key, api_value in data.items():
                 if api_key in drop_fields:
