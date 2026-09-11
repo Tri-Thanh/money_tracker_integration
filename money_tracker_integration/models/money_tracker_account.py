@@ -8,6 +8,9 @@ _logger = logging.getLogger(__name__)
 
 class MoneyTrackerAccount(models.Model):
     _name = "money_tracker.account"
+    _inherit = [
+        'money_tracker.mixin',
+    ]
     _description = "Money Tracker Account"
     _rec_name = "name"
     _order = "order_num"
@@ -115,6 +118,17 @@ class MoneyTrackerAccount(models.Model):
         string="Internal Currency",
         store=True,
     )
+
+    @api.model
+    def sync_data(self):
+        self.sync_accounts()
+
+    @api.model
+    def action_open_mt_data(self):
+        action = self.env['ir.actions.actions']._for_xml_id(
+            full_xml_id='money_tracker_integration.money_tracker_account_action',
+        )
+        return action
 
     @api.model
     def get_mapping_fields(self):

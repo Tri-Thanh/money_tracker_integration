@@ -37,7 +37,7 @@
     ],
     'assets': {
         'web.assets_backend': [
-            'money_tracker_integration/static/src/views/**/*',
+            'money_tracker_integration/static/src/views/list/mt_sync_data/*',
         ],
     },
 }
