@@ -240,7 +240,7 @@ class MoneyTrackerTransaction(models.Model):
         current_user = self.env.user
         current_user._check_api_token_empty()
         datas, meta = current_user.get_mt_transactions(**kwargs)
-        if not datas:
+        if datas is None:
             raise ValidationError(_("Money Tracker returned invalid transaction data."))
 
         parsed_data = self.parse_mt_transaction_data(transactions_data=datas)

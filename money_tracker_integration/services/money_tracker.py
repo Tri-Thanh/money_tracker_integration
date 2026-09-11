@@ -72,7 +72,7 @@ class MoneyTrackerService:
         else:
             params.setdefault('end_date', self.FULL_SYNC_END_DATE)
 
-        transaction_data = []
+        transaction_data = None
         transaction_meta = {}
         while offset >= 0:
             _params = {
@@ -85,6 +85,7 @@ class MoneyTrackerService:
                 params=_params,
             )
             if data and isinstance(data, list):
+                transaction_data = [] if transaction_data is None else transaction_data
                 transaction_data.extend(data)
 
             transaction_meta = meta or {}
