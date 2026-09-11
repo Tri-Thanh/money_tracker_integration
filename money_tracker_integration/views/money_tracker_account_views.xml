@@ -27,7 +27,7 @@
                 <list create="0" edit="0" delete="0" expand="context.get('expand')">
                     <field name="display_name"
                            widget="mt_display_remark"
-                           class="mt_remark_display_name text-wrap text-break"
+                           options="{'show_remark_label': False}"
                            context="{'with_remark': True}"/>
                     <field name="name" column_invisible="1"/>
                     <field name="remark" column_invisible="1"/>

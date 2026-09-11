@@ -26,9 +26,13 @@ export class MTDisplayRemark extends Component {
         ...standardFieldProps,
         remarkField: { type: String, optional: true },
         remarkFieldString: { type: String, optional: true },
+        showRemarkLabel: { type: Boolean, optional: true },
     };
 
     get remarkLabel() {
+        if (this.props.showRemarkLabel === false) {
+            return "";
+        }
         const fieldName = getFieldName(this.props.remarkField, DEFAULT_REMARK_FIELD);
         return this.props.remarkFieldString || this.props.record.fields[fieldName]?.string || "";
     }
@@ -75,6 +79,7 @@ export const mtDisplayRemark = {
     ],
     extractProps: ({ options }) => ({
         remarkField: options.remark_field,
+        showRemarkLabel: options.show_remark_label !== false,
     }),
     fieldDependencies: ({ options }) =>
         [
