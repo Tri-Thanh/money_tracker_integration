@@ -255,8 +255,8 @@ class MoneyTrackerTransaction(models.Model):
             _logger.exception(msg=e)
             raise ValidationError(e)
         finally:
-            self.env['money_tracker.account'].flush_model()
-            self.env['money_tracker.account'].flush_recordset()
+            self.env[self._name].flush_model()
+            self.env[self._name].flush_recordset()
 
     @api.model
     def sync_data(self):
