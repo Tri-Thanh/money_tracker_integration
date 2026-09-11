@@ -8,7 +8,7 @@
             <menuitem id="money_tracker_all_transactions"
                       name="Transactions"
                       sequence="1"
-                      action="money_tracker_integration.money_tracker_transaction_action"
+                      action="money_tracker_integration.action_open_mt_transaction"
             />
             <menuitem id="money_tracker_app_configuration"
                       name="Configuration"

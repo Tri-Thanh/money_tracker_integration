@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from . import money_tracker_mixin
 from . import res_users
 from . import money_tracker_currency
 from . import money_tracker_category

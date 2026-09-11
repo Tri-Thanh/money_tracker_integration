@@ -9,6 +9,14 @@
                     <field name="remark" string="Description"/>
                     <field name="transactionExternalID" string="External UUID"/>
                     <field name="type"/>
+                    <filter name="filter_all"
+                            string="All"
+                            domain="['|', ('active', '=', True) ,('active', '!=', True)]"
+                    />
+                    <filter name="filter_inactive"
+                            string="Inactive"
+                            domain="[('active', '!=', True)]"
+                    />
                     <group string="Group By">
                         <filter name="groupby_type"
                                 string="Type"
@@ -69,8 +77,23 @@
             <field name="name">Money Tracker - Transaction</field>
             <field name="res_model">money_tracker.transaction</field>
             <field name="view_mode">list</field>
-            <field name="context">{'expand': True, 'search_default_groupby_transaction_date': 1, 'only_income_expense': 1}</field>
+            <field name="context">{
+                'expand': True,
+                'search_default_groupby_transaction_date': 1,
+                'only_income_expense': 1,
+                }
+            </field>
             <field name="search_view_id" ref="money_tracker_integration.money_tracker_transaction_view_search"/>
+        </record>
+
+        <record id="action_open_mt_transaction" model="ir.actions.server">
+            <field name="name">Money Tracker: Transactions</field>
+            <field name="path">mt_transaction</field>
+            <field name="model_id" ref="money_tracker_integration.model_money_tracker_transaction"/>
+            <field name="binding_model_id" eval="False"/>
+            <field name="state">code</field>
+            <field name="groups_id" eval="[(4, ref('base.group_user'))]"/>
+            <field name="code">action = model.action_open_data()</field>
         </record>
     </data>
 </odoo>

@@ -12,10 +12,17 @@ _mt_parse_dt = MTParseDatetime()
 
 class MoneyTrackerTransaction(models.Model):
     _name = "money_tracker.transaction"
+    _inherit = [
+        'money_tracker.mixin',
+    ]
     _description = "Money Tracker Transaction"
     _rec_name = "remark"
     _order = "transaction_date desc, transaction_add_time desc"
 
+    active = fields.Boolean(
+        string="Active",
+        default=True,
+    )
     # owner fields
     owner_id = fields.Many2one(
         comodel_name="res.users",
@@ -239,7 +246,9 @@ class MoneyTrackerTransaction(models.Model):
                 domain=[
                     ('owner_id', '=', current_user.id),
                 ]
-            ).unlink()
+            ).write({
+                'active': False,
+            })
 
             self.env[self._name].with_user(user=current_user).create(parsed_data)
         except Exception as e:
@@ -248,6 +257,17 @@ class MoneyTrackerTransaction(models.Model):
         finally:
             self.env['money_tracker.account'].flush_model()
             self.env['money_tracker.account'].flush_recordset()
+
+    @api.model
+    def sync_data(self):
+        self.sync_transactions()
+
+    @api.model
+    def action_open_mt_data(self):
+        action = self.env['ir.actions.actions']._for_xml_id(
+            full_xml_id='money_tracker_integration.money_tracker_transaction_action',
+        )
+        return action
 
     @api.depends('transactionDate')
     def _compute_transaction_date(self):
