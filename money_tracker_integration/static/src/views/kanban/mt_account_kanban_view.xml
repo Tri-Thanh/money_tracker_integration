@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="money_tracker_integration.MTAccountKanbanView">
+        <section class="o_mt_account_kanban_main o_renderer o_renderer_with_searchpanel d-flex flex-column">
+            <MTAccountDashboard list="props.list"/>
+            <t t-call="web.KanbanRenderer"/>
+        </section>
+    </t>
+</templates>

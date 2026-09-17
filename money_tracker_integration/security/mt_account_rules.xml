@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="mt_account_private_rule" model="ir.rule">
+            <field name="name">Money Tracker Account: Private Rule</field>
+            <field name="model_id" ref="money_tracker_integration.model_money_tracker_account"/>
+            <field name="domain_force">
+                [
+                ('owner_id', '=', user.id),
+                ]
+            </field>
+            <field name="groups"
+                   eval="[
+                        (4, ref('base.group_user')),
+                   ]"
+            />
+        </record>
+    </data>
+</odoo>

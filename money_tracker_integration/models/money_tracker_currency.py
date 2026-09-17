@@ -8,6 +8,9 @@ _logger = logging.getLogger(__name__)
 
 class MoneyTrackerCurrency(models.Model):
     _name = "money_tracker.currency"
+    _inherit = [
+        'money_tracker.mixin',
+    ]
     _description = "Money Tracker Currency"
     _rec_name = "code"
 
@@ -86,6 +89,17 @@ class MoneyTrackerCurrency(models.Model):
         except Exception as e:
             _logger.exception(msg=e)
             raise ValidationError(e)
+
+    @api.model
+    def sync_data(self):
+        self.sync_currencies()
+
+    @api.model
+    def action_open_mt_data(self):
+        action = self.env['ir.actions.actions']._for_xml_id(
+            full_xml_id='money_tracker_integration.money_tracker_currency_action',
+        )
+        return action
 
     @api.depends('display_symbol')
     def _compute_symbol(self):

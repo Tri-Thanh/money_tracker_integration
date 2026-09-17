@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="money_tracker_integration.MTAccountDashboard">
+        <section class="o_mt_account_dashboard container-fluid py-4 border-bottom bg-view" aria-labelledby="mt_account_dashboard_title">
+            <header class="o_mt_account_dashboard_summary">
+                <h2 id="mt_account_dashboard_title" class="o_mt_account_dashboard_title text-muted">
+                    <t t-out="dashboardLabels.netAssets"/>
+                </h2>
+                <p class="o_mt_account_dashboard_net text-900 text-break" t-out="dashboardData['net_total']"/>
+            </header>
+            <ul class="o_mt_account_dashboard_metrics">
+                <t t-foreach="dashboardItems" t-as="item" t-key="item.valueKey">
+                    <li class="o_mt_account_dashboard_metric bg-100">
+                        <span class="o_mt_account_dashboard_label text-muted text-break me-1" t-out="item.label"/>
+                        <strong class="o_mt_account_dashboard_value text-break" t-esc="dashboardData[item.valueKey]"/>
+                    </li>
+                </t>
+            </ul>
+        </section>
+    </t>
+</templates>

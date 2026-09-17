@@ -7,13 +7,13 @@ import {Component} from "@odoo/owl";
 const cogMenuRegistry = registry.category("cogMenu");
 
 /**
- * 'Money Tracker Category' menu
+ * 'Money Tracker Transaction' menu
  *
- * This component is used to synchronize categories with Money Tracker.
+ * This component is used to synchronize transactions with Money Tracker.
  * @extends Component
  */
-export class MTSyncAccount extends Component {
-    static template = "money_tracker_integration.MTSyncAccount";
+export class MTSyncTransaction extends Component {
+    static template = "money_tracker_integration.MTSyncTransaction";
     static components = {DropdownItem};
     static props = {};
 
@@ -21,17 +21,18 @@ export class MTSyncAccount extends Component {
     // Protected
     //---------------------------------------------------------------------
 
-    async onSyncAccount() {
+    async onSyncTransactions() {
+        // get all transactions from Money Tracker app
         try {
             await this.env.model.orm.call(
                 this.env.model.config.resModel,
-                "sync_accounts",
+                "sync_transactions",
             );
 
             await this.env.model.load();
 
             this.env.services.notification.add(
-                "Account synchronization completed successfully.",
+                "All Transactions synchronization completed successfully.",
                 {
                     title: "Success",
                     type: "success",
@@ -40,7 +41,7 @@ export class MTSyncAccount extends Component {
             );
         } catch (error) {
             this.env.services.notification.add(
-                "Account synchronization failed.",
+                "Transaction Synchronization failed.",
                 {
                     title: "Error",
                     type: "danger",
@@ -52,13 +53,13 @@ export class MTSyncAccount extends Component {
     }
 }
 
-export const mtSyncAccountItem = {
-    Component: MTSyncAccount,
+export const mtSyncTransactionItem = {
+    Component: MTSyncTransaction,
     groupNumber: STATIC_ACTIONS_GROUP_NUMBER,
     isDisplayed: async (env) =>
-        env.model?.config?.resModel === 'money_tracker.account' &&
-        ["list", "kanban"].includes(env.config.viewType) &&
-        !env.model.root?.selection?.length
+        env.config.viewType === "list" &&
+        !env.model.root.selection.length &&
+        env.model.config.resModel === 'money_tracker.transaction'
 };
 
-cogMenuRegistry.add("mt-sync-account-menu", mtSyncAccountItem, {sequence: 38});
+cogMenuRegistry.add("mt-sync-transaction-menu", mtSyncTransactionItem, {sequence: 38});
