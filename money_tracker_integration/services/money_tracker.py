@@ -1,8 +1,12 @@
 import requests
 from typing import Dict, Any, Optional
 
+from odoo import fields
+from odoo.exceptions import ValidationError
+
 
 class MoneyTrackerService:
+    FULL_SYNC_END_DATE = "9999-12-31"
 
     def __init__(self, env, token, timeout: int = 15):
         self.env = env
@@ -53,10 +57,45 @@ class MoneyTrackerService:
         )
 
     def get_transactions(self, **params):
-        return self._request(
-            endpoint="getTransactions",
-            params=params,
-        )
+        limit = int(params.get('limit', 500))
+        offset = int(params.get('offset', 0))
+        start_date = fields.Date.to_date(value=params.get('start_date'))
+        end_date = fields.Date.to_date(value=params.get('end_date'))
+
+        if start_date:
+            max_end_date = fields.Date.add(start_date, days=365)
+            if end_date and end_date < start_date:
+                raise ValidationError("param `end_date` must be greater than `start_date`")
+            if not end_date or end_date > max_end_date:
+                end_date = max_end_date
+            params['end_date'] = end_date
+        else:
+            params.setdefault('end_date', self.FULL_SYNC_END_DATE)
+
+        transaction_data = None
+        transaction_meta = {}
+        while offset >= 0:
+            _params = {
+                **params,
+                'limit': limit,
+                'offset': offset,
+            }
+            data, meta = self._request(
+                endpoint="getTransactions",
+                params=_params,
+            )
+            if data and isinstance(data, list):
+                transaction_data = [] if transaction_data is None else transaction_data
+                transaction_data.extend(data)
+
+            transaction_meta = meta or {}
+
+            if transaction_meta.get('has_more', False):
+                offset += int(transaction_meta.get('limit', limit))
+            else:
+                offset = -1
+
+        return transaction_data, transaction_meta
 
     def get_accounts(self):
         return self._request(

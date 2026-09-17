@@ -8,6 +8,9 @@ _logger = logging.getLogger(__name__)
 
 class MoneyTrackerCategory(models.Model):
     _name = "money_tracker.category"
+    _inherit = [
+        'money_tracker.mixin',
+    ]
     _description = "Money Tracker Category"
     _rec_name = "title"
 
@@ -36,7 +39,7 @@ class MoneyTrackerCategory(models.Model):
     )
 
     _sql_constraints = [
-        ('unique_categoryid_per_owner', 'UNIQUE(categoryID, owner_id)', "Category's ID must be unique"),
+        ('unique_categoryid_per_owner', 'UNIQUE("categoryID", owner_id)', "Category's ID must be unique"),
     ]
 
     @api.model
@@ -65,3 +68,14 @@ class MoneyTrackerCategory(models.Model):
         except Exception as e:
             _logger.exception(msg=e)
             raise ValidationError(e)
+
+    @api.model
+    def sync_data(self):
+        self.sync_categories()
+
+    @api.model
+    def action_open_mt_data(self):
+        action = self.env['ir.actions.actions']._for_xml_id(
+            full_xml_id='money_tracker_integration.money_tracker_category_action',
+        )
+        return action
