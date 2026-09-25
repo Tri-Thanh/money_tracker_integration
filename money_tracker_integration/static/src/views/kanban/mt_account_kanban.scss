@@ -2,7 +2,9 @@
     flex: 1 1 auto;
     min-width: 0;
     min-height: 0;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .o_mt_account_dashboard {
@@ -81,6 +83,47 @@
 
         .o_kanban_group {
             min-height: auto;
+            padding: 0;
+            overflow: visible;
+        }
+
+        .o_kanban_header {
+            position: static !important;
+            padding: 0.75rem 1rem !important;
+            border-bottom: 1px solid var(--border-color, #dee2e6);
+            background: var(--o-view-background-color, #fff);
+        }
+
+        .o_kanban_header_title {
+            align-items: center;
+            min-height: auto;
+        }
+
+        .o_column_title {
+            position: static !important;
+            min-width: 0;
+            transform: none !important;
+            transform-origin: initial !important;
+            overflow: hidden !important;
+            font-size: 1rem !important;
+            line-height: 1.25 !important;
+            opacity: 1 !important;
+            white-space: nowrap;
+        }
+
+        .o_column_unfold {
+            min-width: auto;
+            padding: 0 !important;
+            margin-left: auto;
+        }
+
+        .o_kanban_group.o_column_folded {
+            min-height: auto;
+            background: var(--100, #f8f9fa);
+
+            .o_kanban_header {
+                background: var(--100, #f8f9fa);
+            }
         }
 
         .o_kanban_record {
@@ -149,6 +192,21 @@
 }
 
 @media (max-width: 991.98px) {
+    .o_mt_account_kanban {
+        .o_kanban_renderer.o_kanban_grouped {
+            height: auto !important;
+            min-height: 0;
+            overflow: visible !important;
+            scroll-snap-type: none;
+
+            .o_kanban_group,
+            .o_column_quick_create {
+                overflow: visible !important;
+                scroll-snap-align: none;
+            }
+        }
+    }
+
     .o_mt_account_dashboard {
         grid-template-columns: 1fr;
     }

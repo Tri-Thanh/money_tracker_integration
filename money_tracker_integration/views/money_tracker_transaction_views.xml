@@ -27,7 +27,7 @@
                                 context="{'group_by': 'transaction_date:day'}"
                         />
                     </group>
-                    <searchpanel>
+                    <searchpanel fold="1">
                         <field name="type" icon="fa-tags" enable_counters="1"/>
                     </searchpanel>
                 </search>
@@ -75,14 +75,97 @@
             </field>
         </record>
 
+        <record id="money_tracker_transaction_view_kanban" model="ir.ui.view">
+            <field name="name">money_tracker_transaction_view_kanban</field>
+            <field name="model">money_tracker.transaction</field>
+            <field name="arch" type="xml">
+                <kanban class="o_mt_transaction_kanban"
+                        js_class="mt_transaction_dashboard_kanban"
+                        create="0"
+                        edit="0"
+                        delete="0"
+                        quick_create="false"
+                        default_order="transaction_date desc, transaction_add_time desc">
+                    <field name="display_name"/>
+                    <field name="amount"/>
+                    <field name="type"/>
+                    <field name="remark"/>
+                    <field name="transaction_date"/>
+                    <field name="mt_category_id"/>
+                    <field name="from_mt_account_id"/>
+                    <field name="to_mt_account_id"/>
+                    <field name="from_currency_id"/>
+                    <templates>
+                        <t t-name="card">
+                            <section class="o_mt_transaction_card d-flex align-items-center"
+                                     t-att-class="{
+                                        'o_mt_transaction_card_income': record.type.raw_value === '1',
+                                        'o_mt_transaction_card_expense': record.type.raw_value === '2',
+                                        'o_mt_transaction_card_transfer': record.type.raw_value === '3',
+                                     }">
+                                <span class="o_mt_transaction_icon_slot flex-shrink-0" aria-hidden="true"/>
+                                <header class="o_mt_transaction_info min-w-0">
+                                    <h3 t-if="record.type.raw_value === '3' and (record.from_mt_account_id.raw_value or record.to_mt_account_id.raw_value)"
+                                        class="o_mt_transaction_name text-truncate">
+                                        <span t-if="record.from_mt_account_id.raw_value"
+                                              t-out="record.from_mt_account_id.value"/>
+                                        <span class="fa fa-long-arrow-right mx-1" aria-hidden="true"/>
+                                        <span t-if="record.to_mt_account_id.raw_value"
+                                              t-out="record.to_mt_account_id.value"/>
+                                    </h3>
+                                    <h3 t-elif="record.mt_category_id.raw_value"
+                                        class="o_mt_transaction_name text-truncate"
+                                        t-out="record.mt_category_id.value"/>
+                                    <h3 t-else=""
+                                        class="o_mt_transaction_name text-truncate"
+                                        t-out="record.display_name.value"/>
+                                    <p class="o_mt_transaction_meta text-truncate"
+                                       t-if="record.remark.raw_value"
+                                       t-out="record.remark.value"/>
+                                </header>
+                                <output class="o_mt_transaction_amount ms-auto text-nowrap">
+                                    <field name="amount"
+                                           widget="monetary"
+                                           options="{'currency_field': 'from_currency_id'}"/>
+                                </output>
+                            </section>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
         <record id="money_tracker_transaction_action" model="ir.actions.act_window">
             <field name="name">Money Tracker - Transaction</field>
             <field name="res_model">money_tracker.transaction</field>
-            <field name="view_mode">list</field>
+            <field name="view_mode">kanban,list</field>
             <field name="context">{
                 'expand': True,
-                'search_default_groupby_transaction_date': 1,
                 'only_income_expense': 1,
+                'search_default_groupby_transaction_date': 1,
+                }
+            </field>
+            <field name="search_view_id" ref="money_tracker_integration.money_tracker_transaction_view_search"/>
+        </record>
+
+        <record id="money_tracker_transaction_by_account_action" model="ir.actions.act_window">
+            <field name="name">Money Tracker - Transaction</field>
+            <field name="res_model">money_tracker.transaction</field>
+            <field name="view_mode">kanban,list</field>
+            <field name="domain">[
+                '&amp;',
+                '|',
+                ('from_mt_account_id', '!=', False),
+                ('to_mt_account_id', '!=', False),
+                '|',
+                ('from_mt_account_id', 'in', [active_id]),
+                ('to_mt_account_id', 'in', [active_id])
+                ]
+            </field>
+            <field name="context">{
+                'expand': True,
+                'only_income_expense': 1,
+                'search_default_groupby_transaction_date': 1,
                 }
             </field>
             <field name="search_view_id" ref="money_tracker_integration.money_tracker_transaction_view_search"/>

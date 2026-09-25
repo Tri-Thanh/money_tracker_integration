@@ -2,7 +2,8 @@ import logging
 
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
-from odoo.tools import Query, SQL
+from odoo.osv import expression
+from odoo.tools import Query, SQL, format_amount
 
 from ..services.mt_parse_dt import MTParseDatetime
 
@@ -28,6 +29,7 @@ class MoneyTrackerTransaction(models.Model):
         comodel_name="res.users",
         string="Owner",
         default=lambda self: self.env.user.id,
+        index=True,
         readonly=True,
     )
     # sync fields
@@ -53,6 +55,7 @@ class MoneyTrackerTransaction(models.Model):
             ('6', "AA Settlement"),
         ],
         string="Type",
+        index=True,
         required=True,
         readonly=True,
     )
@@ -100,6 +103,7 @@ class MoneyTrackerTransaction(models.Model):
     from_mt_account_id = fields.Many2one(
         comodel_name='money_tracker.account',
         string="MT from Account ID",
+        index=True,
     )
     from_mt_account_currency_id = fields.Many2one(
         comodel_name='money_tracker.currency',
@@ -122,6 +126,7 @@ class MoneyTrackerTransaction(models.Model):
     # compute fields
     transaction_date = fields.Date(
         string="Date",
+        index=True,
         store=True,
         compute="_compute_transaction_date",
     )
@@ -153,7 +158,7 @@ class MoneyTrackerTransaction(models.Model):
 
     @api.model
     def web_read_group(self, domain, fields, groupby, limit=None, offset=0, orderby=False, lazy=True):
-        result = super().web_read_group(
+        result = super(MoneyTrackerTransaction, self).web_read_group(
             domain,
             fields,
             groupby,
@@ -179,6 +184,101 @@ class MoneyTrackerTransaction(models.Model):
                 'expense': amount_by_type.get('2', 0.0) or 0.0,
             }
         return result
+
+    @api.model
+    def _get_dashboard_amounts(self, domain=None):
+        dashboard_domain = expression.AND([
+            domain or [],
+            [('type', 'in', ('1', '2'))],
+        ])
+        grouped_amounts = self._read_group(
+            dashboard_domain,
+            groupby=['type'],
+            aggregates=['amount:sum'],
+        )
+        amount_by_type = {
+            transaction_type: amount or 0.0
+            for transaction_type, amount in grouped_amounts
+        }
+        expense_total = abs(amount_by_type.get('2', 0.0))
+        income_total = amount_by_type.get('1', 0.0)
+        return {
+            'domain': dashboard_domain,
+            'expense': expense_total,
+            'income': income_total,
+            'net_flow': income_total - expense_total,
+        }
+
+    def _format_signed_amount(self, amount, currency):
+        formatted_amount = format_amount(self.env, amount, currency)
+        return f"+{formatted_amount}" if amount > 0 else formatted_amount
+
+    @api.model
+    def _get_dashboard_delta_ratio(self, current_amount, previous_amount):
+        if not previous_amount:
+            return False
+        return (current_amount - previous_amount) / abs(previous_amount)
+
+    @api.model
+    def _get_dashboard_currency(self, domain):
+        query = self._where_calc(domain)
+        self._apply_ir_rules(query, 'read')
+        account_alias = SQL.identifier('mt_dashboard_account')
+        account_currency_field = SQL.identifier('mt_dashboard_account', 'internal_currency_id')
+        account_id_field = SQL.identifier('mt_dashboard_account', 'id')
+        rows = self.env.execute_query(SQL(
+            """
+            SELECT DISTINCT %(account_currency_field)s
+              FROM %(from_clause)s
+              LEFT JOIN %(account_table)s AS %(account_alias)s
+                ON %(account_id_field)s = %(transaction_account_field)s
+             WHERE %(where_clause)s
+               AND %(account_currency_field)s IS NOT NULL
+             LIMIT 2
+            """,
+            account_alias=account_alias,
+            account_currency_field=account_currency_field,
+            account_id_field=account_id_field,
+            account_table=SQL.identifier('money_tracker_account'),
+            from_clause=query.from_clause,
+            transaction_account_field=SQL.identifier(query.table, 'from_mt_account_id'),
+            where_clause=query.where_clause or SQL("TRUE"),
+        ))
+        currency_ids = [currency_id for currency_id, in rows]
+        if len(currency_ids) == 1:
+            return self.env['res.currency'].browse(currency_ids[0])
+        return self.env.company.currency_id
+
+    @api.model
+    def retrieve_dashboard(self, domain=None, previous_domain=None):
+        self.browse().check_access('read')
+
+        current_amounts = self._get_dashboard_amounts(domain)
+        previous_amounts = (
+            self._get_dashboard_amounts(previous_domain)
+            if previous_domain is not None
+            else None
+        )
+        currency = self._get_dashboard_currency(current_amounts['domain'])
+        expense_income_ratio = False
+        if current_amounts['income']:
+            expense_income_ratio = current_amounts['expense'] / current_amounts['income']
+
+        return {
+            'expense_total': format_amount(self.env, current_amounts['expense'], currency),
+            'income_total': format_amount(self.env, current_amounts['income'], currency),
+            'net_flow_total': self._format_signed_amount(current_amounts['net_flow'], currency),
+            'net_flow_amount': current_amounts['net_flow'],
+            'expense_income_ratio': expense_income_ratio,
+            'expense_delta_ratio': self._get_dashboard_delta_ratio(
+                current_amounts['expense'],
+                previous_amounts['expense'],
+            ) if previous_amounts else False,
+            'income_delta_ratio': self._get_dashboard_delta_ratio(
+                current_amounts['income'],
+                previous_amounts['income'],
+            ) if previous_amounts else False,
+        }
 
     @api.model
     def _get_mt_field_unit(self, api_field_name=''):
@@ -308,7 +408,7 @@ class MoneyTrackerTransaction(models.Model):
             transaction.transaction_date = _mt_parse_dt.parse_mt_datetime(
                 value=transaction.transactionDate,
                 unit=self._get_mt_field_unit(
-                    api_field_name=mapping_fields.get('transactionDate'),
+                    api_field_name=mapping_fields.get('transactionDate', ''),
                 ),
                 output=self._fields.get('transaction_date'),
             )
@@ -320,7 +420,7 @@ class MoneyTrackerTransaction(models.Model):
             transaction.transaction_add_time = _mt_parse_dt.parse_mt_datetime(
                 value=transaction.transactionAddTime,
                 unit=self._get_mt_field_unit(
-                    api_field_name=mapping_fields.get('transactionAddTime'),
+                    api_field_name=mapping_fields.get('transactionAddTime', ''),
                 ),
                 output=self._fields.get('transaction_add_time'),
             )

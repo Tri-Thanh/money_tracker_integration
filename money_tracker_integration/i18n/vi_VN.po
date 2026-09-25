@@ -6,15 +6,82 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-11 00:00+0000\n"
-"PO-Revision-Date: 2026-09-11 00:00+0000\n"
+"POT-Creation-Date: 2026-09-17 14:32+0000\n"
+"PO-Revision-Date: 2026-09-17 14:32+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: money_tracker_integration
+#: model:ir.model.fields.selection,name:money_tracker_integration.selection__money_tracker_transaction__type__6
+msgid "AA Settlement"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields.selection,name:money_tracker_integration.selection__money_tracker_transaction__type__5
+msgid "AA Shared Expense"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields.selection,name:money_tracker_integration.selection__money_tracker_transaction__type__4
+msgid "Account Balance Adjustment"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__accountID
+msgid "Account ID"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__icon
+msgid "Account Icon Path"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__name
+msgid "Account Name"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__accountServerID
+msgid "Account Server ID"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.ui.menu,name:money_tracker_integration.money_tracker_account_config
+msgid "Accounts"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_currency__active
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__active
+msgid "Active"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__add_time
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__transaction_add_time
+msgid "Add Time"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_transaction_view_search
+msgid "All"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__amount
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_account_view_list
+msgid "Amount"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__amount_time
+msgid "Amount Time"
+msgstr ""
 
 #. module: money_tracker_integration
 #. odoo-javascript
@@ -23,16 +90,251 @@ msgid "Assets"
 msgstr "Tài sản"
 
 #. module: money_tracker_integration
-#. odoo-javascript
-#: code:addons/money_tracker_integration/static/src/views/list/list_renderer.js:0
-msgid "Chi tiêu"
-msgstr "Chi tiêu"
+#: model:ir.model.fields.selection,name:money_tracker_integration.selection__money_tracker_account__type__1
+msgid "Cash"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.ui.menu,name:money_tracker_integration.money_tracker_category_config
+msgid "Categories"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_transaction_view_list
+msgid "Category"
+msgstr "Loại"
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_category__categoryID
+msgid "Category External ID"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.constraint,message:money_tracker_integration.constraint_money_tracker_category_unique_categoryid_per_owner
+msgid "Category's ID must be unique"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.view_users_form_simple_modif
+msgid "Check Token"
+msgstr ""
 
 #. module: money_tracker_integration
 #. odoo-javascript
 #: code:addons/money_tracker_integration/static/src/views/list/list_renderer.js:0
-msgid "Thu nhập"
-msgstr "Thu nhập"
+msgid "Chi tiêu"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_currency__code
+msgid "Code"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.ui.menu,name:money_tracker_integration.money_tracker_app_configuration
+msgid "Configuration"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__create_uid
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_category__create_uid
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_currency__create_uid
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__create_date
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_category__create_date
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_currency__create_date
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields.selection,name:money_tracker_integration.selection__money_tracker_account__type__3
+msgid "Credit"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.ui.menu,name:money_tracker_integration.money_tracker_currency_config
+msgid "Currencies"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_currency__currency_id
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__from_currency_id
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_account_view_list
+msgid "Currency"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__currency_amount
+msgid "Currency Amount"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__currency_code
+msgid "Currency Code"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__currencyID
+msgid "Currency ID"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_currency__currency_name
+msgid "Currency Name"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_currency__currency_name_short
+msgid "Currency Name Short"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.constraint,message:money_tracker_integration.constraint_money_tracker_currency_unique_code_per_owner
+msgid "Currency's Code must be unique"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__transaction_date
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_transaction_view_list
+msgid "Date"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields.selection,name:money_tracker_integration.selection__money_tracker_account__type__2
+msgid "Debit"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields.selection,name:money_tracker_integration.selection__money_tracker_account__type__0
+msgid "Default"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_transaction_view_list
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_transaction_view_search
+msgid "Description"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__display_currency_amount
+msgid "Display Currency Amount"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__display_name
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_category__display_name
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_currency__display_name
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_currency__display_symbol
+msgid "Display Symbol"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_transaction_view_search
+msgid "Entry Date"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields.selection,name:money_tracker_integration.selection__money_tracker_category__type__2
+#: model:ir.model.fields.selection,name:money_tracker_integration.selection__money_tracker_transaction__type__2
+msgid "Expense"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_transaction_view_search
+msgid "External UUID"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_category_view_list
+msgid "ExternalID"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__fromAccountExternalID
+msgid "From Account External ID"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_account_view_search
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_category_view_search
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_transaction_view_search
+msgid "Group By"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__id
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_category__id
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_currency__id
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__id
+msgid "ID"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_transaction_view_search
+msgid "Inactive"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields.selection,name:money_tracker_integration.selection__money_tracker_category__type__1
+#: model:ir.model.fields.selection,name:money_tracker_integration.selection__money_tracker_transaction__type__1
+msgid "Income"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__incomeExpenditureCategoryExternalID
+msgid "Income Expenditure Category External ID"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__internal_currency_id
+msgid "Internal Currency"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields.selection,name:money_tracker_integration.selection__money_tracker_account__type__5
+msgid "Investment"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__is_hide_deleted
+msgid "Is Hide Deleted"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__is_not_include_in_total_balance
+msgid "Is Not Include in Total Balance"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__is_server_delete
+msgid "Is Server Deleted"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__write_uid
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_category__write_uid
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_currency__write_uid
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__write_date
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_category__write_date
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_currency__write_date
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__write_date
+msgid "Last Updated on"
+msgstr ""
 
 #. module: money_tracker_integration
 #. odoo-javascript
@@ -41,13 +343,311 @@ msgid "Liabilities"
 msgstr "Nợ phải trả"
 
 #. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_currency__locale
+msgid "Locale"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__from_mt_account_currency_id
+msgid "MT Account Currency ID"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__mt_category_id
+msgid "MT Category"
+msgstr "Loại"
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__to_mt_account_id
+msgid "MT To Account ID"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__from_mt_account_id
+msgid "MT from Account ID"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.ui.menu,name:money_tracker_integration.money_tracker_app_menu
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.view_users_form_simple_modif
+msgid "Money Tracker"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.actions.act_window,name:money_tracker_integration.money_tracker_account_action
+msgid "Money Tracker - Accounts"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.actions.act_window,name:money_tracker_integration.money_tracker_category_action
+msgid "Money Tracker - Categories"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.actions.act_window,name:money_tracker_integration.money_tracker_currency_action
+msgid "Money Tracker - Currencies"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.actions.act_window,name:money_tracker_integration.money_tracker_transaction_action
+msgid "Money Tracker - Transaction"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_res_users__money_tracker_api_token
+msgid "Money Tracker API Token"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model,name:money_tracker_integration.model_money_tracker_account
+msgid "Money Tracker Account"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model,name:money_tracker_integration.model_money_tracker_category
+msgid "Money Tracker Category"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model,name:money_tracker_integration.model_money_tracker_currency
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__mt_currency_id
+msgid "Money Tracker Currency"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model,name:money_tracker_integration.model_money_tracker_mixin
+msgid "Money Tracker Mixin"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model,name:money_tracker_integration.model_money_tracker_transaction
+msgid "Money Tracker Transaction"
+msgstr ""
+
+#. module: money_tracker_integration
+#. odoo-python
+#: code:addons/money_tracker_integration/models/money_tracker_transaction.py:0
+msgid "Money Tracker returned invalid transaction data."
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.actions.server,name:money_tracker_integration.action_open_mt_account
+msgid "Money Tracker: Account"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.actions.server,name:money_tracker_integration.action_open_mt_category
+msgid "Money Tracker: Categories"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.actions.server,name:money_tracker_integration.action_open_mt_currency
+msgid "Money Tracker: Curriencies"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.actions.server,name:money_tracker_integration.action_open_mt_transaction
+msgid "Money Tracker: Transactions"
+msgstr ""
+
+#. module: money_tracker_integration
 #. odoo-javascript
 #: code:addons/money_tracker_integration/static/src/views/kanban/mt_account_dashboard.js:0
 msgid "Net Assets"
 msgstr "Tài sản ròng"
 
 #. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__order_num
+msgid "Order Number"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__owner_id
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_category__owner_id
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_currency__owner_id
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__owner_id
+msgid "Owner"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields.selection,name:money_tracker_integration.selection__money_tracker_account__type__7
+msgid "Payable"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields.selection,name:money_tracker_integration.selection__money_tracker_account__type__6
+msgid "Receivable"
+msgstr ""
+
+#. module: money_tracker_integration
 #. odoo-javascript
 #: code:addons/money_tracker_integration/static/src/views/kanban/mt_account_dashboard.js:0
 msgid "Receivables"
 msgstr "Phải thu"
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__remark
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__remark
+msgid "Remark"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.view_users_form_simple_modif
+msgid "Security"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_currency__symbol
+msgid "Symbol"
+msgstr ""
+
+#. module: money_tracker_integration
+#. odoo-javascript
+#: code:addons/money_tracker_integration/static/src/views/list/mt_sync_account/mt_sync_account.xml:0
+#: code:addons/money_tracker_integration/static/src/views/list/mt_sync_category/mt_sync_category.xml:0
+#: code:addons/money_tracker_integration/static/src/views/list/mt_sync_currency/mt_sync_currency.xml:0
+#: code:addons/money_tracker_integration/static/src/views/list/mt_sync_transaction/mt_sync_transaction.xml:0
+msgid "Synchronize"
+msgstr ""
+
+#. module: money_tracker_integration
+#. odoo-javascript
+#: code:addons/money_tracker_integration/static/src/views/list/mt_sync_data/mt_sync_data.xml:0
+msgid "Synchronize Data"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_transaction_view_list
+msgid "The date of transaction"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_transaction_view_list
+msgid "The real create-date of transaction"
+msgstr ""
+
+#. module: money_tracker_integration
+#. odoo-javascript
+#: code:addons/money_tracker_integration/static/src/views/list/list_renderer.js:0
+msgid "Thu nhập"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_category__title
+msgid "Title"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__toAccountExternalID
+msgid "To Account External ID"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.view_users_form_simple_modif
+msgid "Token"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_account_view_list
+msgid "Total"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__transactionExternalID
+msgid "Transactio External ID"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__transactionServerID
+msgid "Transactio Server ID"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__transactionAddTime
+msgid "Transaction Add Time"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_transaction_view_list
+msgid "Transaction Create date"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__transactionDate
+msgid "Transaction Date"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__transactionDay
+msgid "Transaction Day"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__transactionMonth
+msgid "Transaction Month"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__transactionUserID
+msgid "Transaction User ID"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__transactionYear
+msgid "Transaction Year"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.ui.menu,name:money_tracker_integration.money_tracker_all_transactions
+msgid "Transactions"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields.selection,name:money_tracker_integration.selection__money_tracker_transaction__type__3
+msgid "Transfer"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__type
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_category__type
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_transaction__type
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_account_view_search
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_category_view_search
+#: model_terms:ir.ui.view,arch_db:money_tracker_integration.money_tracker_transaction_view_search
+msgid "Type"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__update_time
+msgid "Update Time"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model,name:money_tracker_integration.model_res_users
+msgid "User"
+msgstr "Người dùng"
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__userID
+msgid "User ID"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.actions.server,name:money_tracker_integration.mt_data_synchronization_cron_ir_actions_server
+msgid "User: Money Tracker Data-Synchronization"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields.selection,name:money_tracker_integration.selection__money_tracker_account__type__4
+msgid "Virtual"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__server_add_time
+msgid "server Add Time"
+msgstr ""
+
+#. module: money_tracker_integration
+#: model:ir.model.fields,field_description:money_tracker_integration.field_money_tracker_account__server_update_time
+msgid "server Update Time"
+msgstr ""

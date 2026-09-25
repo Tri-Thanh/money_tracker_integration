@@ -240,3 +240,9 @@ class MoneyTrackerAccount(models.Model):
         finally:
             self.env['money_tracker.account'].flush_model()
             self.env['money_tracker.account'].flush_recordset()
+
+    def action_open_transaction(self):
+        action = self.env['ir.actions.actions']._for_xml_id(
+            full_xml_id='money_tracker_integration.money_tracker_transaction_by_account_action',
+        )
+        return action
