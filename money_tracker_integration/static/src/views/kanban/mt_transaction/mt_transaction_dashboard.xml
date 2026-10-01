@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="money_tracker_integration.MTTransactionDashboard">
+        <section class="o_mt_transaction_dashboard bg-view border-bottom"
+                 t-att-style="expenseIncomeRatioStyle">
+            <header class="o_mt_transaction_dashboard_header">
+                <div class="o_mt_transaction_dashboard_heading">
+                    <span t-if="periodEyebrow"
+                          class="o_mt_transaction_dashboard_period"
+                          t-esc="periodEyebrow"/>
+                    <h2 class="o_mt_transaction_dashboard_title" t-esc="dashboardLabels.overview"/>
+                </div>
+                <button class="o_mt_transaction_dashboard_filter"
+                        type="button"
+                        t-on-click="openFilterDialog"
+                        t-att-aria-label="dashboardLabels.filterMonth">
+                    <span t-if="activeFilterLabel"
+                          class="o_mt_transaction_dashboard_filter_text"
+                          t-esc="activeFilterLabel"/>
+                    <i class="fa fa-caret-down" aria-hidden="true"/>
+                </button>
+            </header>
+
+            <div class="o_mt_transaction_dashboard_metrics">
+                <article t-foreach="dashboardCards"
+                         t-as="card"
+                         t-key="card.key"
+                         t-att-class="'o_mt_transaction_dashboard_card o_mt_transaction_dashboard_card_' + card.key">
+                    <span class="o_mt_transaction_dashboard_label" t-esc="card.label"/>
+                    <strong class="o_mt_transaction_dashboard_value"
+                            t-att-class="card.valueClass"
+                            t-esc="card.value"/>
+                    <span t-if="card.deltaRatio !== undefined"
+                          class="o_mt_transaction_dashboard_trend"
+                          t-att-class="getDeltaTrendClass(card.deltaRatio)">
+                        <i t-att-class="getDeltaIconClass(card.deltaRatio)" aria-hidden="true"/>
+                        <span t-esc="formatDeltaRatio(card.deltaRatio)"/>
+                    </span>
+                    <span t-elif="card.description"
+                          class="o_mt_transaction_dashboard_description"
+                          t-esc="card.description"/>
+                </article>
+            </div>
+
+            <footer class="o_mt_transaction_dashboard_ratio">
+                <span class="o_mt_transaction_dashboard_ratio_label" t-esc="dashboardLabels.ratio"/>
+                <span class="o_mt_transaction_dashboard_ratio_track" aria-hidden="true">
+                    <span class="o_mt_transaction_dashboard_ratio_bar"/>
+                </span>
+                <strong class="o_mt_transaction_dashboard_ratio_value" t-esc="expenseIncomeRatioLabel"/>
+            </footer>
+        </section>
+    </t>
+
+    <t t-name="money_tracker_integration.MTTransactionMonthFilterDialog">
+        <Dialog header="false"
+                footer="false"
+                size="'md'"
+                withBodyPadding="false">
+            <section class="o_mt_transaction_filter_panel">
+                <h3 class="o_mt_transaction_filter_title" t-esc="title"/>
+                <div class="o_mt_transaction_filter_year_row">
+                    <select class="o_mt_transaction_filter_year_select"
+                            t-on-change="onYearChange">
+                        <option t-foreach="years"
+                                t-as="year"
+                                t-key="year"
+                                t-att-value="year"
+                                t-att-selected="year === state.year"
+                                t-esc="year"/>
+                    </select>
+                    <div class="o_mt_transaction_filter_year_actions">
+                        <button class="btn o_mt_transaction_filter_year_button"
+                                type="button"
+                                t-on-click="previousYear"
+                                t-att-aria-label="labels.previousYear">
+                            <i class="fa fa-angle-left" aria-hidden="true"/>
+                        </button>
+                        <button class="btn o_mt_transaction_filter_year_button"
+                                type="button"
+                                t-on-click="nextYear"
+                                t-att-aria-label="labels.nextYear">
+                            <i class="fa fa-angle-right" aria-hidden="true"/>
+                        </button>
+                    </div>
+                </div>
+                <div class="o_mt_transaction_filter_months">
+                    <button t-foreach="months"
+                            t-as="month"
+                            t-key="month.value"
+                            type="button"
+                            class="o_mt_transaction_filter_month"
+                            t-att-class="{ 'o_mt_transaction_filter_month_active': month.value === state.month }"
+                            t-on-click="() => this.selectMonth(month.value)"
+                            t-esc="month.label"/>
+                </div>
+                <footer class="o_mt_transaction_filter_footer">
+                    <button class="btn o_mt_transaction_filter_cancel"
+                            type="button"
+                            t-on-click="props.close">
+                        <t t-esc="labels.cancel"/>
+                    </button>
+                    <button class="btn o_mt_transaction_filter_confirm"
+                            type="button"
+                            t-on-click="confirm">
+                        <t t-esc="labels.confirm"/>
+                    </button>
+                </footer>
+            </section>
+        </Dialog>
+    </t>
+</templates>

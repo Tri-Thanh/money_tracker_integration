@@ -4,12 +4,16 @@
         <menuitem id="money_tracker_app_menu"
                   name="Money Tracker"
                   web_icon="money_tracker_integration,static/description/icon.png"
-                  action="money_tracker_integration.action_open_mt_account"
+                  action="money_tracker_integration.money_tracker_account_action"
                   sequence="100">
+            <menuitem id="money_tracker_account_config"
+                      name="Accounts"
+                      sequence="3"
+                      action="money_tracker_integration.money_tracker_account_action"/>
             <menuitem id="money_tracker_all_transactions"
                       name="Transactions"
                       sequence="1"
-                      action="money_tracker_integration.action_open_mt_transaction"
+                      action="money_tracker_integration.money_tracker_transaction_action"
             />
             <menuitem id="money_tracker_app_configuration"
                       name="Configuration"
@@ -17,15 +21,11 @@
                 <menuitem id="money_tracker_currency_config"
                           name="Currencies"
                           sequence="1"
-                          action="money_tracker_integration.action_open_mt_currency"/>
+                          action="money_tracker_integration.money_tracker_currency_action"/>
                 <menuitem id="money_tracker_category_config"
                           name="Categories"
                           sequence="2"
-                          action="money_tracker_integration.action_open_mt_category"/>
-                <menuitem id="money_tracker_account_config"
-                          name="Accounts"
-                          sequence="3"
-                          action="money_tracker_integration.action_open_mt_account"/>
+                          action="money_tracker_integration.money_tracker_category_action"/>
             </menuitem>
         </menuitem>
     </data>

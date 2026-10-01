@@ -52,6 +52,7 @@
                 <kanban class="o_mt_account_kanban"
                         js_class="mt_account_dashboard_kanban"
                         create="0"
+                        can_open="false"
                         edit="0"
                         delete="0"
                         quick_create="false">
@@ -61,18 +62,22 @@
                     <field name="display_currency_amount"/>
                     <templates>
                         <t t-name="card">
-                            <section class="o_mt_account_card d-flex align-items-center">
-                                <span class="o_mt_account_icon_slot flex-shrink-0" aria-hidden="true"/>
-                                <header class="o_mt_account_info min-w-0">
-                                    <h3 class="o_mt_account_name text-truncate" t-out="record.name.value"/>
-                                    <p class="o_mt_account_remark text-truncate fst-italic"
-                                       t-if="record.remark.raw_value"
-                                       t-out="record.remark.value"/>
-                                </header>
-                                <output class="o_mt_account_amount ms-auto text-nowrap"
-                                        t-out="record.display_currency_amount.value"/>
-                                <span class="fa fa-angle-right o_mt_account_chevron" aria-hidden="true"/>
-                            </section>
+                            <a type="object" name="action_open_transaction"
+                               class="d-block h-100 text-reset text-decoration-none">
+                                <section class="o_mt_account_card d-flex align-items-center">
+                                    <span class="o_mt_account_icon_slot flex-shrink-0" aria-hidden="true"/>
+                                    <header class="o_mt_account_info min-w-0">
+                                        <h3 class="o_mt_account_name text-truncate" t-out="record.name.value"/>
+                                        <p class="o_mt_account_remark text-truncate fst-italic"
+                                           t-if="record.remark.raw_value"
+                                           t-out="record.remark.value"/>
+                                    </header>
+                                    <output class="o_mt_account_amount ms-auto text-nowrap"
+                                            t-out="record.display_currency_amount.value"/>
+                                    <span class="fa fa-angle-right o_mt_account_chevron" aria-hidden="true"
+                                          context="{'account_id': id}"/>
+                                </section>
+                            </a>
                         </t>
                     </templates>
                 </kanban>
