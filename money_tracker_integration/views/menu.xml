@@ -6,6 +6,10 @@
                   web_icon="money_tracker_integration,static/description/icon.png"
                   action="money_tracker_integration.money_tracker_account_action"
                   sequence="100">
+            <menuitem id="money_tracker_account_config"
+                      name="Accounts"
+                      sequence="3"
+                      action="money_tracker_integration.money_tracker_account_action"/>
             <menuitem id="money_tracker_all_transactions"
                       name="Transactions"
                       sequence="1"
@@ -22,10 +26,6 @@
                           name="Categories"
                           sequence="2"
                           action="money_tracker_integration.money_tracker_category_action"/>
-                <menuitem id="money_tracker_account_config"
-                          name="Accounts"
-                          sequence="3"
-                          action="money_tracker_integration.money_tracker_account_action"/>
             </menuitem>
         </menuitem>
     </data>
