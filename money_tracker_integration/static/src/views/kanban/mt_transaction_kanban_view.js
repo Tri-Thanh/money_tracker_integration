@@ -138,12 +138,6 @@ export class MTTransactionKanbanModel extends RelationalModel {
             groupConfig.context = context;
             group.records = [];
 
-            if (!groupConfig.isFolded) {
-                nbOpenGroups++;
-                if (nbOpenGroups > this.constructor.MAX_NUMBER_OPENED_GROUPS) {
-                    groupConfig.isFolded = true;
-                }
-            }
             if (!groupConfig.isFolded && group.count > 0) {
                 openGroups.push({ group, groupConfig });
             }
